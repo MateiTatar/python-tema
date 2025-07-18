@@ -22,6 +22,11 @@ def submit_operation():
     except ValidationError as e:
         return jsonify({'error': e.errors()}), 422
 
+    # Listează operațiile acceptate:
+    ALLOWED_OPS = ("pow", "fibonacci", "factorial")
+    if op_req.op_type not in ALLOWED_OPS:
+        return jsonify({'error': 'Invalid operation type.'}), 400
+
     # Validate operands length
     if op_req.op_type == "pow" and len(op_req.operands) != 2:
         return jsonify({'error': 'pow needs 2 operands'}), 400
