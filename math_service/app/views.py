@@ -1,10 +1,14 @@
+# math_service/app/views.py
 from flask import Blueprint, request, jsonify
 from pydantic import ValidationError
 from app.models import OperationRequest, JobStatusResponse, OperationResponse
 from app.cache import OperationCache
 from app.database import Database
 from app.worker import JobQueue
+#from flask import render_template_string
 
+
+# Create a Flask Blueprint for the API
 api = Blueprint('api', __name__)
 cache = OperationCache()
 db = Database()
@@ -51,3 +55,7 @@ def get_history():
         for row in reqs
     ]
     return jsonify(history), 200
+
+@api.route('/health', methods=['GET'])
+def health():
+    return "OK", 200
