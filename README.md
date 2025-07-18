@@ -1,2 +1,0 @@
-# python-tema
-Tema python
